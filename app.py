@@ -27,7 +27,7 @@ if __name__ == "__main__":
         else:
             os.system('clear')
 
-        print("PassChecker v1.1.1\n")
+        print("PassChecker v1.1.2\n")
 
         #Ask for input password
         pass_str = input("Insert password to check: ")
