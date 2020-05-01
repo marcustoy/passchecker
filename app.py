@@ -1,4 +1,5 @@
 import sys
+import os
 import hashlib
 import urllib.request
 import contextlib
@@ -26,6 +27,12 @@ def get_sha1_list(sha1_str):
 if __name__ == "__main__":
 
     while True:
+        #clear console screen
+        if sys.platform == "win32" or sys.platform == "cygwin":
+            os.system('cls')
+        else:
+            os.system('clear')
+
         #Ask for input password
         pass_str = input("Insert password to check: ")
 
