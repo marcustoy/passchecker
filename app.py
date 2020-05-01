@@ -1,8 +1,7 @@
 import sys
 import os
 import hashlib
-import urllib.request
-import contextlib
+import requests
 
 
 def convert_sha1(input_str):
@@ -14,13 +13,8 @@ def convert_sha1(input_str):
 def get_sha1_list(sha1_str):
     url_str = "https://api.pwnedpasswords.com/range/" + sha1_str
 
-    with contextlib.closing(urllib.request.urlopen(url_str)) as r:
-        contents = str(r.read())
-    
-    if contents[0] == "b":
-        contents = contents[2:]
-
-    return contents.split("\\r\\n")
+    contents = requests.get(url_str).text
+    return contents.split("\r\n")
 
 
 
@@ -71,4 +65,5 @@ if __name__ == "__main__":
             break
 
     #Exit program
+    print("PassChecker terminated. Have a nice day.")
     sys.exit()
