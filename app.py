@@ -21,7 +21,7 @@ def get_sha1_list(sha1_str):
         contents = contents[2:]
 
     return contents.split("\\r\\n")
-    
+
 
 
 if __name__ == "__main__":
@@ -32,6 +32,8 @@ if __name__ == "__main__":
             os.system('cls')
         else:
             os.system('clear')
+
+        print("PassChecker v1.1.1\n")
 
         #Ask for input password
         pass_str = input("Insert password to check: ")
