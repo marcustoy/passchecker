@@ -25,30 +25,41 @@ def get_sha1_list(sha1_str):
 
 if __name__ == "__main__":
 
-    #Ask for input password
-    pass_str = input("Insert password to check: ")
+    while True:
+        #Ask for input password
+        pass_str = input("Insert password to check: ")
 
-    #Convert password into SHA-1 hash
-    sha1_str = convert_sha1(pass_str)
+        #Convert password into SHA-1 hash
+        sha1_str = convert_sha1(pass_str)
 
-    #Strip out first 5 digits of password SHA-1 hash
-    sha1_stripped_front = sha1_str[0:5]
-    sha1_stripped_back = sha1_str[5:]
+        #Strip out first 5 digits of password SHA-1 hash
+        sha1_stripped_front = sha1_str[0:5]
+        sha1_stripped_back = sha1_str[5:]
 
-    #Get list of SHA-1 compomised passwords from pwnedpasswords API
-    sha1_list = get_sha1_list(sha1_stripped_front)
+        #Get list of SHA-1 compomised passwords from pwnedpasswords API
+        sha1_list = get_sha1_list(sha1_stripped_front)
 
-    #Match password's SHA-1 hash's remaininng digits (6th till end) with the list and console output if match is found
-    match_found = False
-    for ind_sha1 in sha1_list:
-        ind_sha1_components = str(ind_sha1).split(":")
-        if ind_sha1_components[0].lower() == sha1_stripped_back.lower():
-            match_found = True
+        #Match password's SHA-1 hash's remaininng digits (6th till end) with the list and console output if match is found
+        match_found = False
+        for ind_sha1 in sha1_list:
+            ind_sha1_components = str(ind_sha1).split(":")
+            if ind_sha1_components[0].lower() == sha1_stripped_back.lower():
+                match_found = True
+                break
+        
+        if match_found == True:
+            print(f"PASSWORD IS PUBLIC for {str(ind_sha1_components[1])} times. Consider using/changing another password.")
+        else:
+            print("PASSWORD IS NOT PUBLIC.")
+
+
+        #Ask whether to restart program or exit program
+        print("\n")
+        restart_input = input("Check another password? (y): ")
+        if str(restart_input).lower().replace(" ", "") == "y":
+            continue
+        else:
             break
 
-    if match_found == True:
-        print(f"PASSWORD IS PUBLIC for {str(ind_sha1_components[1])} times. Consider using/changing another password.")
-    else:
-        print("PASSWORD IS NOT PUBLIC.")
-
+    #Exit program
     sys.exit()
